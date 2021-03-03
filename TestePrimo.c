@@ -12,7 +12,7 @@
 /*  EhPrimo = 0 se o numero dado nao 'e primo       */
 
 
-
+//Algoritmo 1
 int TestaPrimo(long int n) 
 {
     int EhPrimo = 1,
@@ -27,6 +27,54 @@ int TestaPrimo(long int n)
     }
     return EhPrimo;
 }
+
+//Algoritmo 2
+//Teorema de Wilson que valida se os números são primos ou não
+int TestePrimo2(int x) 
+{
+    int flag = 0;
+    int i = 0;
+    for (i = 2; i <= x / 2; ++i) {
+
+        // condition for non-prime
+        if (x % i == 0) {
+            flag = 1;
+            break;
+        }
+    }
+
+    return flag;
+}
+
+
+//Algoritmo 3
+//Pequeno Teorema de Fermat
+//estarei utilizando o maior número primo informado 2147483647 para o valor n, para validar se a é ou não primo
+int TestePrimo3(int num)
+{
+    if (num <= 3) {
+        return num > 1;
+    }
+
+
+    if ((num % 2 == 0) || (num % 3 == 0)) {
+        return num;
+    }
+
+    
+    int contador = 5;
+    while (pow(contador, 2) <= num) {
+        if (num % contador == 0 ||  num % (contador + 2) == 0) {
+            return 0;
+        }
+
+        contador += 6;
+    }
+
+    return 1;
+}
+
+
 
 double desvioPadrao(double x[15], double _x, int n)
 {
@@ -70,7 +118,7 @@ int main()
         for (int i = 0; i < 15; i++) 
         {
             tempo = clock();
-            isprime = TestaPrimo(v[j]);
+            isprime = TestePrimo3(v[j]);
             tempo = clock() - tempo;
             soma += ((double)tempo / CLOCKS_PER_SEC) * 1000;
             //printf("\ntempo acumulado: %f\n", soma);
